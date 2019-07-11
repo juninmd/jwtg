@@ -3,6 +3,7 @@
 const jsonwebtoken = require('jsonwebtoken');
 const fs = require('fs');
 const pathLib = require('path');
+const clipboardy = require('clipboardy');
 
 (() => {
     let [_, _jwtg, secretKey, path] = process.argv;
@@ -28,10 +29,15 @@ const pathLib = require('path');
         }
     }
 
-    console.log(jsonwebtoken.sign(json, secretKey || 'stubJWT', {
+    const token = jsonwebtoken.sign(json, secretKey || 'stubJWT', {
         noTimestamp: true
-    }));
+    });
+
+    console.log(token);
+
+    clipboardy.writeSync(token);
 
     console.log('JSON:', json);
     console.log('Secret:', secretKey || 'stubJWT');
 })();
+

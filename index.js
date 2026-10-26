@@ -19,12 +19,14 @@ const clipboardy = require('clipboardy');
             } catch (error) {
                 console.error('Invalid JSON:', error.message);
                 console.error('Path:', path);
+                process.exitCode = 1;
                 return;
             }
         }
         else {
             console.error('Please, check your path, and select a valid JSON File!');
             console.error('Path:', path);
+            process.exitCode = 1;
             return;
         }
     }

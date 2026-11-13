@@ -1,5 +1,9 @@
 # jwtg
 
+<p align="center">
+  <img src="docs/readme/hero.png" alt="Banner ilustrativo do jwtg (mockup com dados fictícios)" width="100%">
+</p>
+
 **Assina um JWT a partir de um payload JSON e copia o token para a área de transferência.**
 
 CLI global, sem servidor e sem rede: lê um arquivo `.json`, assina com o segredo informado e imprime o token no terminal — pronto para colar em um teste de API.
@@ -145,6 +149,18 @@ Dependências: `jsonwebtoken@^8.5.1` e `clipboardy@^2.1.0`. Não há script de t
 | `dependabot-auto-merge.yml` | `pull_request_target` | Auto-merge de PRs do Dependabot quando os checks passam |
 
 Nenhum workflow executa uma suíte de testes, porque o repositório não tem uma.
+
+## Imagens
+
+> [!NOTE]
+> **Mockups ilustrativos.** As telas abaixo foram geradas em HTML com dados fictícios (Playwright) e não são capturas de uma instalação real.
+
+<p align="center">
+  <img src="docs/readme/session.png" alt="Assinatura local, sem servidor — mockup ilustrativo com dados fictícios" width="100%">
+  <br>
+  <sub>Assinatura local, sem servidor — dados fictícios.</sub>
+</p>
+
 
 ## Limitações
 

@@ -30,9 +30,17 @@ const pathLib = require('path');
         }
     }
 
-    const token = jsonwebtoken.sign(json, secretKey || 'stubJWT', {
-        noTimestamp: true
-    });
+    let token;
+    try {
+        token = jsonwebtoken.sign(json, secretKey || 'stubJWT', {
+            noTimestamp: true
+        });
+    } catch (error) {
+        // e.g. the JSON file holds an array, null or a primitive instead of an object
+        console.error('Could not sign the token:', error.message);
+        process.exitCode = 1;
+        return;
+    }
 
     console.log(token);
 

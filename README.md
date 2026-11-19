@@ -19,7 +19,7 @@ CLI global, sem servidor e sem rede: lê um arquivo `.json`, assina com o segred
 
 ## Requisitos
 
-- Node.js com npm. O `package.json` **não declara** `engines`, então não há versão mínima documentada.
+- Node.js 20 ou superior (exigência do `clipboardy@5`, declarada em `engines`).
 - Nenhuma variável de ambiente é lida.
 
 ## Instalação
@@ -92,7 +92,7 @@ Como `noTimestamp: true` é fixo, não há claim `iat`; o payload é exatamente 
 2. Se `path` foi informado, ele é resolvido e precisa existir **e** ter extensão exatamente `.json` (maiúsculas como `.JSON` são rejeitadas).
 3. O arquivo é lido de forma síncrona e passado por `JSON.parse`.
 4. `jsonwebtoken.sign(json, secretKey || 'stubJWT', { noTimestamp: true })` gera o token.
-5. O token é impresso, gravado no clipboard com `clipboardy.writeSync`, e o payload e o segredo são impressos.
+5. O token é impresso, o payload e o segredo são impressos e, por fim, o token é gravado no clipboard com `clipboardy.write`. Se o clipboard não estiver disponível (por exemplo, Linux sem `xsel`/`xclip` ou sessão SSH), o CLI avisa no stderr e termina normalmente: o token já foi impresso.
 
 O algoritmo não é configurável: `jsonwebtoken` usa HS256 por padrão e o código não passa `algorithm`.
 
@@ -136,7 +136,7 @@ npm install
 node index.js minha-chave ./payload.json
 ```
 
-Dependências: `jsonwebtoken@^8.5.1` e `clipboardy@^2.1.0`. Não há script de teste no `package.json` nem arquivos de teste no repositório.
+Dependências: `jsonwebtoken@^9.0.3` e `clipboardy@^5.3.2` (ESM-only, carregado via `import()`). Não há script de teste no `package.json` nem arquivos de teste no repositório.
 
 ## CI
 

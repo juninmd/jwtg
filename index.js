@@ -12,18 +12,21 @@ const pathLib = require('path');
     if (path) {
         path = pathLib.resolve(path);
 
-        if (fs.existsSync(path) && pathLib.extname(path) === '.json') {
-            try {
-                json = JSON.parse(fs.readFileSync(path).toString());
-            } catch (error) {
-                console.error('Invalid JSON:', error.message);
-                console.error('Path:', path);
-                process.exitCode = 1;
-                return;
-            }
+        // One message per cause: "check your path" for every case hid whether the file was missing or just not .json
+        let problem = null;
+        if (!fs.existsSync(path)) problem = 'File not found.';
+        else if (fs.statSync(path).isDirectory()) problem = 'This is a folder; pass a .json file.';
+        else if (pathLib.extname(path).toLowerCase() !== '.json') problem = 'The payload must be a .json file.';
+        if (problem) {
+            console.error(problem);
+            console.error('Path:', path);
+            process.exitCode = 1;
+            return;
         }
-        else {
-            console.error('Please, check your path, and select a valid JSON File!');
+        try {
+            json = JSON.parse(fs.readFileSync(path).toString());
+        } catch (error) {
+            console.error('Invalid JSON:', error.message);
             console.error('Path:', path);
             process.exitCode = 1;
             return;

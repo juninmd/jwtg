@@ -34,6 +34,8 @@ O pacote registra o binário `jwtg` apontando para `index.js`.
 
 ```sh
 jwtg <secret?> <jsonPath?>
+jwtg --help      # ou -h: mostra o uso
+jwtg --version   # ou -v: mostra a versão
 ```
 
 Os dois argumentos são **posicionais e opcionais**:

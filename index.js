@@ -4,8 +4,28 @@ const jsonwebtoken = require('jsonwebtoken');
 const fs = require('fs');
 const pathLib = require('path');
 
+const USAGE = `Usage: jwtg [secret] [payload.json]
+
+Signs the JSON payload (default {}) with HS256 and copies the token to the clipboard.
+  secret         signing key (default: stubJWT)
+  payload.json   path to a .json file with the payload
+
+Options:
+  -h, --help     show this help
+  -v, --version  show the version`;
+
 (async () => {
     let [_, _jwtg, secretKey, path] = process.argv;
+
+    // Without this, `jwtg --help` silently signed a token with "--help" as the secret
+    if (secretKey === '-h' || secretKey === '--help') {
+        console.log(USAGE);
+        return;
+    }
+    if (secretKey === '-v' || secretKey === '--version') {
+        console.log(require('./package.json').version);
+        return;
+    }
 
     let json = {};
 

@@ -65,10 +65,11 @@ Options:
         return;
     }
 
+    // stdout carries only the token so `TOKEN=$(jwtg ...)` and pipes get a usable value; details go to stderr.
     console.log(token);
 
-    console.log('JSON:', json);
-    console.log('Secret:', secretKey || 'stubJWT');
+    console.error('JSON:', json);
+    console.error('Secret:', secretKey || 'stubJWT');
 
     try {
         // clipboardy >= 5 is ESM-only, so it must be loaded with import()

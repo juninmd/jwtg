@@ -76,6 +76,13 @@ JSON: { sub: '42', role: 'admin' }
 Secret: minha-chave
 ```
 
+Só o token vai para o stdout; `JSON:` e `Secret:` vão para o stderr. Assim dá para usar direto em script:
+
+```sh
+TOKEN=$(jwtg minha-chave ./payload.json 2>/dev/null)
+curl -H "Authorization: Bearer $TOKEN" http://localhost:3000
+```
+
 O token acima decodifica para:
 
 ```json
